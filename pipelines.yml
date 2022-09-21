@@ -6,7 +6,7 @@ resources:
       fileLocation: deploy-generic-local # name of the artifactory from which one need to deploy the file
      
 pipelines:
-  - name: pipelines_file # Name of pipeline
+  - name: Production_pipelines_file # Name of pipeline
     steps:
       - name: REFILE_1
         type: bash
