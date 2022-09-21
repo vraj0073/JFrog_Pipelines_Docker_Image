@@ -19,4 +19,5 @@ pipelines:
         execution:
           onExecute:
             - echo "executing step..."
+            - bash vraj.sh
             - jfrog rt dl deploy-generic-local --sort-by=created --sort-order=desc --limit=1
