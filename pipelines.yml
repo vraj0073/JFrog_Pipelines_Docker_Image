@@ -1,5 +1,5 @@
 resources:
-  - name: RemoteFile_1
+  - name: RemoteFile_2
     type: RemoteFile
     configuration:
       source: Artifactory
@@ -15,7 +15,7 @@ pipelines:
           integrations:
             - name: Artifactory
           outputResources:
-            - name: RemoteFile_1
+            - name: RemoteFile_2
         execution:
           onExecute:
             - echo "executing step..."
