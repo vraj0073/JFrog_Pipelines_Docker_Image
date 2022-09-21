@@ -1,23 +1,27 @@
 resources:
-  - name: RemoteFile_1
+  - name: myApplication
     type: RemoteFile
     configuration:
-      source: Artifactory
-      fileLocation: generic-generic-local # name of the artifactory from which one need to deploy the file
-     
+      sourceArtifactory: Artifactory
+      fileLocation: generic-generic-local
+  - name: myVM
+    type: VmCluster
+    configuration:
+      sshKey: mySSHKey
+      targets:
+        - 0.0.0.0
+        - 1.1.1.1
 pipelines:
-  - name: pipelines_file # Name of pipeline
+  - name: linuxVMDeployPipeline
     steps:
-      - name: REFILE_1
-        type: bash
+      - name: linuxVMDeploy
+        type: LinuxVMDeploy
         configuration:
-          nodePool: default-dynamic-nodepool # Name of node pool
-          integrations:
-            - name: Artifactory
-          outputResources:
-            - name: RemoteFile_1
-        execution:
-          onExecute:
-            - echo "executing step..."
-            - jfrog rt dl generic-generic-local --sort-by=created --sort-order=desc --limit=1
-        
+          inputResources:
+            - name: myVM
+            - name: myApplication
+          scripts:
+            - name: deployCommand
+              context: targetCluster
+              commands:
+                - "bash vraj.sh"
