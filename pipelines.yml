@@ -11,6 +11,8 @@ pipelines:
       - name: REFILE_1
         type: bash
         configuration:
+          inputResources:
+            - name: RemoteFile_2
           nodePool: final # Name of node pool
           integrations:
             - name: Artifactory
